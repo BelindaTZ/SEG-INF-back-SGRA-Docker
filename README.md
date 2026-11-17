@@ -42,10 +42,11 @@ docker compose ps
 La API queda disponible en `http://localhost:8080`. Usa
 `SGRA_BACKEND_PORT` para cambiar el puerto local.
 
-Para iniciar ambos servicios juntos, ejecuta el mismo comando desde
-`SEG-INF-front-SGRA-Docker`. Usa una sola de las dos configuraciones para
-evitar dos instancias del backend ejecutando tareas programadas sobre la
-misma base de datos.
+Inicia el frontend por separado desde el `compose.yml` de
+`SEG-INF-front-SGRA-Docker`. Docker Desktop permite que el frontend acceda
+a la API mediante `host.docker.internal`. Si cambias el puerto del backend,
+configura el mismo valor de `SGRA_BACKEND_PORT` al iniciar el frontend.
+`docker compose down` en esta carpeta detiene solo el backend.
 
 Para guardar una copia local de los respaldos desde el módulo de
 administración, usa la ruta `/var/lib/sgra/backups`. Compose la monta en un
