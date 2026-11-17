@@ -1,0 +1,31 @@
+package com.CLMTZ.Backend.service.security.impl;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.CLMTZ.Backend.dto.security.Request.UpdateAssignmentRolesGRolesRequestDTO;
+import com.CLMTZ.Backend.dto.security.Response.SpResponseDTO;
+import com.CLMTZ.Backend.repository.security.custom.IRoleManagementRoleCustomRepository;
+import com.CLMTZ.Backend.service.security.IRoleManagementRoleService;
+import lombok.RequiredArgsConstructor;
+import tools.jackson.databind.ObjectMapper;
+
+@Service
+@RequiredArgsConstructor
+public class RoleManagementRoleServiceImpl implements IRoleManagementRoleService {
+
+    private final ObjectMapper objectMapper;
+    private final IRoleManagementRoleCustomRepository roleManagementRoleCustomRepo;
+
+    @Override
+    @Transactional
+    public SpResponseDTO  updateRoleGRoleAssignment(List<UpdateAssignmentRolesGRolesRequestDTO> updateAssignmentRoles){
+        try {
+            String jsonAssignment = objectMapper.writeValueAsString(updateAssignmentRoles);
+            return roleManagementRoleCustomRepo.updateRoleGRoleAssignment(jsonAssignment);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar las asignaciones de roles: " + e.getMessage());
+        }
+    }
+}
