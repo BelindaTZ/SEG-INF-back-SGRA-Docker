@@ -33,7 +33,7 @@ una identidad de aplicación autorizada a leer el almacén. La sesión
 interactiva de Azure CLI en Windows queda fuera del contenedor.
 
 Inicia ambos servicios con `docker compose up --build -d` desde
-`front-SGRA-Docker`. Para guardar una copia local de los respaldos desde el
+`SEG-INF-front-SGRA-Docker`. Para guardar una copia local de los respaldos desde el
 módulo de administración, usa la ruta `/var/lib/sgra/backups`, que Compose
 monta en un volumen persistente.
 
