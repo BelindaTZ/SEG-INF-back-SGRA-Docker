@@ -9,7 +9,7 @@ requiere otra versión, define `SGRA_PG_MAJOR` al construir con Compose.
 La zona horaria del contenedor es `America/Guayaquil` por defecto y se puede
 ajustar con `TZ` para recordatorios y respaldos programados.
 
-Para iniciar junto al frontend, prepara la configuración de ejecución:
+Para iniciar el backend, prepara la configuración de ejecución:
 
 ```powershell
 Copy-Item .env.docker.example .env.docker
@@ -32,10 +32,24 @@ y configura `AZURE_TENANT_ID`, `AZURE_CLIENT_ID` y `AZURE_CLIENT_SECRET` para
 una identidad de aplicación autorizada a leer el almacén. La sesión
 interactiva de Azure CLI en Windows queda fuera del contenedor.
 
-Inicia ambos servicios con `docker compose up --build -d` desde
-`SEG-INF-front-SGRA-Docker`. Para guardar una copia local de los respaldos desde el
-módulo de administración, usa la ruta `/var/lib/sgra/backups`, que Compose
-monta en un volumen persistente.
+El `compose.yml` de esta raíz permite iniciar solo el backend:
+
+```powershell
+docker compose up --build -d
+docker compose ps
+```
+
+La API queda disponible en `http://localhost:8080`. Usa
+`SGRA_BACKEND_PORT` para cambiar el puerto local.
+
+Para iniciar ambos servicios juntos, ejecuta el mismo comando desde
+`SEG-INF-front-SGRA-Docker`. Usa una sola de las dos configuraciones para
+evitar dos instancias del backend ejecutando tareas programadas sobre la
+misma base de datos.
+
+Para guardar una copia local de los respaldos desde el módulo de
+administración, usa la ruta `/var/lib/sgra/backups`. Compose la monta en un
+volumen persistente del proyecto en ejecución.
 
 Backend del Sistema de Gestión de Refuerzos Académicos (SGRA), desarrollado con **Spring Boot 4** y **Java 21**.
 

@@ -1,0 +1,19 @@
+name: sgra-backend
+
+services:
+  backend:
+    image: sgra-backend:local
+    build:
+      context: .
+      args:
+        PG_MAJOR: ${SGRA_PG_MAJOR:-18}
+    env_file:
+      - path: ${SGRA_BACKEND_ENV:-.env.docker}
+        required: false
+    ports:
+      - "127.0.0.1:${SGRA_BACKEND_PORT:-8080}:8080"
+    volumes:
+      - backend-backups:/var/lib/sgra/backups
+
+volumes:
+  backend-backups:
